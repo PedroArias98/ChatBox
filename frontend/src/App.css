@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+
+
+.App{
+    min-height: 100vh;
+    display: flex;
+    
+    background-color: #080808;
+    background-size: cover;
+    background-position: center;
+    
+}
+
+.Container-landing{
+    background-image: url('./images/blurry-gradient-haikei.png');
+     background-size: cover;
+    background-position: center;
+
+}
+
+.Container-chat{
+      background-image: url('./images/blurry-gradient-haikei3.png');
+         background-size: cover;
+    background-position: center;
+
+
+}
+img {
+    max-width: 100%;
+    height: auto;
+    padding: 0;
+    margin: 0;
+}
+
+.title{
+    font-size: 07vh;
+    line-height:1.1;
+    font-weight: bolder;
+}
+
+.title2{
+    font-size: 05vh;
+    line-height: 1.2;
+    font-weight: bolder;
+    text-align: center;
+   
+}
+
+.subtitle{
+    font-size: 2.5vh;
+    
+    font-weight: 400;
+    
+}
+
+.smallText{
+    margin-top: 0px;
+    padding-top: 0px ;
+    font-size: 4vh;
+    font-weight: 700;
+    
+}
+
+.smallTextGradient{
+    margin-top: 0px;
+    padding-top: 0px ;
+    font-size: 4vh;
+    font-weight: 700;
+   background: -webkit-linear-gradient(left, #832cff, #ddc4fc);
+   background: -o-linear-gradient(right, #832cff,#ddc4fc);
+   background: -moz-linear-gradient(right, #832cff,#ddc4fc);
+   background: linear-gradient(to right, #832cff,#ddc4fc); 
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+    
+}
+
+.smallTextGradient2{
+    margin-top: 0px;
+    padding-top: 0px ;
+    font-size: 4vh;
+    font-weight: 700;
+   background: -webkit-linear-gradient(left, #6c77ff, #9ebeff);
+   background: -o-linear-gradient(right, #6c77ff,#9ebeff);
+   background: -moz-linear-gradient(right, #6c77ff,#9ebeff);
+   background: linear-gradient(to right, #6c77ff,#9ebeff); 
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+    
+}
+
+
+
