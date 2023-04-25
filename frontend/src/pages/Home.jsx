@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../App.css";
 import { CardHeader, Container } from "@mui/material";
 
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -25,6 +25,8 @@ import { Route } from "react-router-dom";
 
 import sheet from "../images/sheet.png";
 
+import darkTheme from "./misc/theme";
+
 function Copyright(props) {
   return (
     <Typography
@@ -41,19 +43,14 @@ function Copyright(props) {
   );
 }
 
-const theme = createTheme({
-  palette: {
-    mode: "dark",
-    primary: {
-      main: "#3f51b5",
-    },
-    secondary: {
-      main: "#b39ddb",
-    },
-  },
-});
-
 export const Home = () => {
+  const history = useHistory();
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("userInfo"));
+    if (user) history.push("/chats");
+  }, [history]);
+
   const navItems = ["Home", "About", "Contact"];
 
   const itemStyles = {
@@ -95,8 +92,8 @@ export const Home = () => {
     });
   };
   return (
-    <Container maxWidth={false}>
-      <ThemeProvider theme={theme}>
+    <Container maxWidth={false} sx={{ backgroundColor: "#211F2C" }}>
+      <ThemeProvider theme={darkTheme}>
         <AppBar
           position="static"
           style={{ background: "transparent", boxShadow: "none" }}
@@ -125,6 +122,8 @@ export const Home = () => {
                   type="submit"
                   fullWidth
                   variant="contained"
+                  color="primary"
+                  sx={{ borderRadius: "18px" }}
                 >
                   Sign In
                 </Button>
@@ -170,7 +169,7 @@ export const Home = () => {
                     variant="h2"
                     class="subtitle"
                   >
-                    La distacia ya no será un impedimento. Con ChatBox tienes
+                    La distancia ya no será un impedimento. Con ChatBox tienes
                     todas las herramientas que necesitas para poder colaborar
                     con tus equipos de una forma sencilla y eficiente.
                   </Typography>
@@ -200,30 +199,39 @@ export const Home = () => {
             marginTop: 4,
 
             borderRadius: "8px",
-            //border: 1,
+
             //borderColor: "#6B728E",
           }}
         >
-          <Typography
-            component="h1"
-            class="title2"
-            align="center"
-            mt={5}
-            mb={5}
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
           >
-            Todo lo que puedes hacer
-          </Typography>
+            <Typography
+              component="h1"
+              class="title2"
+              align="center"
+              mt={5}
+              mb={5}
+            >
+              Todo lo que puedes hacer
+            </Typography>
 
-          <Typography
-            component="h1"
-            class="subtitle"
-            align="center"
-            mt={2}
-            mb={10}
-          >
-            Echa un vistazo a las caracteristicas que tiene la aplicacion de
-            ChatBox.
-          </Typography>
+            <Typography
+              component="h1"
+              className="subtitle"
+              mt={2}
+              mb={10}
+              sx={{ textAlign: "center" }}
+            >
+              Echa un vistazo a las caracteristicas que tiene la aplicacion de
+              ChatBox.
+            </Typography>
+          </Box>
+
           <Container maxWidth="xl" component="main">
             <Grid container spacing={5} alignItems="stretch" paddingBottom={5}>
               {tiers.map((tier) => (
@@ -241,7 +249,7 @@ export const Home = () => {
                       borderRadius: 10,
                       paddingLeft: 8,
                       paddingRight: 8,
-                      background: "#212121",
+                      background: "#252331",
                     }}
                   >
                     <CardHeader
