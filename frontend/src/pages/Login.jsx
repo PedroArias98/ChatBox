@@ -8,17 +8,19 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Grid from "@mui/material/Grid";
+
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Tab from "@material-ui/core/Tab";
+
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
 import TabContext from "@material-ui/lab/TabContext";
 import TabList from "@material-ui/lab/TabList";
 import TabPanel from "@material-ui/lab/TabPanel";
 import Input from "@mui/material/Input";
+
+import darkTheme from "./misc/theme";
 
 function Copyright(props) {
   return (
@@ -37,18 +39,6 @@ function Copyright(props) {
     </Typography>
   );
 }
-
-const theme = createTheme({
-  palette: {
-    mode: "dark",
-    primary: {
-      main: "#3f51b5",
-    },
-    secondary: {
-      main: "#b39ddb",
-    },
-  },
-});
 
 export default function LabTabs() {
   const [value, setValue] = React.useState("1");
@@ -91,15 +81,14 @@ const SignIn = () => {
       password: data.get("password"),
     });
   };
-  const history = useHistory();
-  function navigateTo(url) {
-    history.push(url);
-  }
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [loading, setLoading] = useState();
   // const history = useHistory();
+
+  const history = useHistory();
+
   const submitHandler = async () => {
     setLoading(true);
     if (!email || !password) {
@@ -121,7 +110,7 @@ const SignIn = () => {
       alert("Inicio de sesion Exitoso");
       localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
-      navigateTo("/chats");
+      history.push("/chats");
     } catch (error) {
       alert("ha ocurrido un error", error);
       console.log(error);
@@ -173,6 +162,7 @@ const SignIn = () => {
               size="large"
               fullWidth
               variant="contained"
+              color="primary"
               sx={{ mt: 3, mb: 2, borderRadius: "18px" }}
               onClick={submitHandler}
             >
@@ -346,10 +336,11 @@ const SignUp = () => {
               size="large"
               fullWidth
               variant="contained"
+              color="primary"
               sx={{ mt: 3, mb: 2, borderRadius: "18px" }}
               onClick={submitHandler}
             >
-              Sign In
+              Sign Up
             </Button>
           </Box>
         </Box>
@@ -369,7 +360,7 @@ export const Login = () => {
   };
   return (
     <Container>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={darkTheme}>
         <Container
           component="main"
           maxWidth="xs"

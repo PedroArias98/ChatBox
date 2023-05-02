@@ -15,6 +15,8 @@ import FormControl from "@mui/material/FormControl";
 import IconButton from "@mui/material/IconButton";
 import GroupsIcon from "@mui/icons-material/Groups";
 
+import darkTheme from "../misc/theme";
+
 import axios from "axios";
 
 const style = {
@@ -32,18 +34,6 @@ const style = {
   p: 4,
   color: "#fafafa",
 };
-
-const theme = createTheme({
-  palette: {
-    mode: "dark",
-    primary: {
-      main: "#3f51b5",
-    },
-    secondary: {
-      main: "#b39ddb",
-    },
-  },
-});
 
 const GroupChatModal = ({ children }) => {
   const [groupChatName, setGroupChatName] = useState();
@@ -122,7 +112,7 @@ const GroupChatModal = ({ children }) => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={darkTheme}>
           <Box sx={style}>
             <Typography
               id="modal-modal-title"
@@ -177,8 +167,13 @@ const GroupChatModal = ({ children }) => {
               )}
             </Typography>
 
-            <Button variant="contained" sx={{ mt: 3 }} onClick={handleSubmit}>
-              ola
+            <Button
+              variant="contained"
+              color="primary"
+              sx={{ mt: 3 }}
+              onClick={handleSubmit}
+            >
+              Crear Chat
             </Button>
           </Box>
         </ThemeProvider>

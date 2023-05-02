@@ -124,7 +124,7 @@ export const UpdateGroupChatModal = ({
       return;
     }
 
-    if (selectedChat.groupAdmin._id !== user.id) {
+    if (selectedChat.groupAdmin._id !== user._id) {
       alert("No tienes el persmiso de administrador");
       return;
     }
