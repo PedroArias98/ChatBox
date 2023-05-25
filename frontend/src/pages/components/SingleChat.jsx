@@ -7,6 +7,7 @@ import {
   Input,
   TextField,
   Divider,
+  Checkbox,
 } from "@mui/material";
 import image from "../../images/Chatting-amico.svg";
 import Typography from "@mui/material/Typography";
@@ -21,6 +22,9 @@ import IconButton from "@mui/material/IconButton";
 import { Link } from "react-router-dom";
 
 import CallIcon from "@mui/icons-material/Call";
+
+import LockIcon from "@mui/icons-material/Lock";
+import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 
 import axios from "axios";
 import { ScrollableChat } from "./ScrollableChat";
@@ -41,8 +45,15 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const [typing, setTyping] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
 
+  const [encrypt, setEncrypt] = useState(false);
+
   const [pic, setPic] = useState("");
   const [file, setFile] = useState(false);
+
+  const handleCheck = (e) => {
+    setEncrypt(e.target.checked);
+    alert(e.target.checked);
+  };
 
   const openWindow = () => {
     window.open("/video");
@@ -79,6 +90,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             content: newMessage,
             isFile: file,
             chatId: selectedChat._id,
+            isEncrypted: encrypt,
           },
           config
         );
@@ -88,7 +100,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
         setMessages([...messages, data]);
       } catch (error) {
-        alert("Ha ocurrido un error");
+        alert("Ha ocurrido un error mensaje");
       }
     }
   };
@@ -111,6 +123,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         config
       );
       console.log(messages);
+
       setMessages(data);
       setLoading(false);
 
@@ -315,6 +328,13 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 onChange={typingHandler}
                 value={newMessage}
               />
+
+              <Checkbox
+                checked={encrypt}
+                onChange={handleCheck}
+                icon={<LockOpenOutlinedIcon />}
+                checkedIcon={<LockIcon />}
+              ></Checkbox>
             </FormControl>
           </Box>
         </>
