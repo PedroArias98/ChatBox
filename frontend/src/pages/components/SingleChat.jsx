@@ -13,6 +13,14 @@ import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import { getSender, getSenderData } from "../../config/chatLogics";
 import { UpdateGroupChatModal } from "./UpdateGroupChatModal";
+import { VideoCallModal } from "./VideoCallModal";
+import VideoPlayer from "./VideoPlayer";
+
+import IconButton from "@mui/material/IconButton";
+
+import { Link } from "react-router-dom";
+
+import CallIcon from "@mui/icons-material/Call";
 
 import axios from "axios";
 import { ScrollableChat } from "./ScrollableChat";
@@ -33,8 +41,16 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const [typing, setTyping] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
 
+  const [pic, setPic] = useState("");
+  const [file, setFile] = useState(false);
+
+  const openWindow = () => {
+    window.open("/video");
+  };
+
   useEffect(() => {
     socket = io(ENDPOINT);
+
     socket.emit("setup", user);
     socket.on("connected", () => setSocketConnected(true));
     socket.on("typing", () => setIsTyping(true));
@@ -53,10 +69,15 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
           },
         };
         setNewMessage("");
+        setFile(false);
+        if (file) {
+          alert("aaaaa");
+        }
         const { data } = await axios.post(
           "/api/message",
           {
             content: newMessage,
+            isFile: file,
             chatId: selectedChat._id,
           },
           config
@@ -141,8 +162,43 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     //TODO Indicador de escribiendo
   };
 
+  const postDetails = (pics) => {
+    setLoading(true);
+    if (pics === undefined) {
+      alert("pic is undefined");
+      return;
+    }
+    if (pics.type === "image/jpeg" || "image/png") {
+      const data = new FormData();
+      data.append("file", pics);
+      data.append("upload_preset", "chatBox");
+      data.append("cloud_name", "deby6roey");
+      fetch("https://api.cloudinary.com/v1_1/deby6roey/image/upload", {
+        method: "post",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setPic(data.url.toString());
+          setFile(true);
+          setNewMessage(data.url.toString());
+
+          console.log(data.url.toString());
+
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setLoading(false);
+        });
+    } else {
+      alert("porfavor selecciona una imagen");
+    }
+  };
+
   return (
     <>
+      {console.log("la pic ess:" + pic)}
       {selectedChat ? (
         <>
           {!selectedChat.isGroupChat ? (
@@ -170,6 +226,10 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               >
                 {getSender(user, selectedChat.users)}
               </Typography>
+
+              <IconButton onClick={openWindow} variant="outlined">
+                <CallIcon />
+              </IconButton>
             </Box>
           ) : (
             <>
@@ -237,6 +297,18 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
             <FormControl onKeyDown={sendMessage} isRequired sx={{ mt: 3 }}>
               {isTyping ? <div>Loading...</div> : <></>}
+              <Input
+                type="file"
+                onChange={(e) => {
+                  postDetails(e.target.files[0]);
+                  e.target.value = null;
+
+                  // console.log("hola" + e.target.files[0].toString());
+                  // console.log("la img es " + picture);
+                  // console.log("el msj es " + newMessage);
+                }}
+              />
+
               <TextField
                 variant="outlined"
                 placeholder="Escribe un mensaje"

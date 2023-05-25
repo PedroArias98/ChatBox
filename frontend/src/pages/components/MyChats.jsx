@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import ChatLoading from "./ChatLoading";
 import Stack from "@mui/material/Stack";
 import { getSender } from "../../config/chatLogics";
+import VideoPlayer from "./VideoPlayer";
 
 import GroupChatModal from "./GroupChatModal";
 const MyChats = ({ fetchAgain }) => {

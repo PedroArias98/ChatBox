@@ -254,7 +254,7 @@ const SignUp = () => {
         .then((res) => res.json())
         .then((data) => {
           setPic(data.url.toString());
-          console.log(data.url.toString());
+          console.log("hola2" + data.url.toString());
           setLoading(false);
         })
         .catch((err) => {

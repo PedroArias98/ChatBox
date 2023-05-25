@@ -1,6 +1,9 @@
 const express = require("express")
 const dotenv = require("dotenv")
 const colors = require("colors")
+
+const cors = require("cors")
+
 const userRoutes = require("./routes/userRoutes")
 const chatRoutes = require("./routes/chatRoutes")
 const messageRoutes = require("./routes/messageRoutes")
@@ -53,15 +56,21 @@ const io = require('socket.io')(server, {
     pingTimeout: 60000,
     cors: {
         origin: "http://localhost:3000",
+        methods: ["GET", "POST"]
     },
 })
+
+app.use(cors())
+
+
+
 
 io.on("connection", (socket) => {
     console.log('connectd to socket.io')
 
     socket.on('setup', (userData) => {
         socket.join(userData._id)
-        console.log(userData._id)
+        console.log("la data del ususario es :" + userData._id)
         socket.emit("connected")
 
     })
@@ -87,11 +96,29 @@ io.on("connection", (socket) => {
             }
             socket.in(user._id).emit("message received", newMessageReceived)
         })
-
     })
+
+
 
     socket.off("setup", () => {
         console.log("USER DISCONNECTED")
         socket.leave(userData._id)
     })
+
+    //VIDEO CALLS
+    socket.emit('me', socket.id)
+    console.log("El id del socket es: " + socket.id)
+    socket.on('disconnect', () => {
+        socket.broadcast.emit("callended")
+    })
+
+    socket.on("calluser", ({ userToCall, signalData, from, name }) => {
+        io.to(userToCall).emit("calluser", { signal: signalData, from, name })
+
+    })
+
+    socket.on("answercall", (data) => {
+        io.to(data.to).emit("callaccepted", data.signal)
+    })
+
 })

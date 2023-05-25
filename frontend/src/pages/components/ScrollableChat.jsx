@@ -40,7 +40,11 @@ export const ScrollableChat = ({ messages }) => {
                 marginTop: isSameUser(messages, m, i, user._id) ? 3 : 10,
               }}
             >
-              {m.content}
+              {m.isFile ? (
+                <img src={m.content} width={500} height={500}></img>
+              ) : (
+                m.content
+              )}
             </span>
           </div>
         ))}
