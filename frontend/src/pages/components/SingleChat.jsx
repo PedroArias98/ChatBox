@@ -25,9 +25,11 @@ import CallIcon from "@mui/icons-material/Call";
 
 import LockIcon from "@mui/icons-material/Lock";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 import axios from "axios";
 import { ScrollableChat } from "./ScrollableChat";
+import { StyledBadge, OfflineBadge } from "./Badge";
 
 import io from "socket.io-client";
 
@@ -42,6 +44,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const { user, selectedChat, setSelectedChat } = ChatState();
 
   const [socketConnected, setSocketConnected] = useState(false);
+
   const [typing, setTyping] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
 
@@ -50,13 +53,34 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
   const [pic, setPic] = useState("");
   const [file, setFile] = useState(false);
 
+  const [location, setLocation] = useState(0);
+
   const handleCheck = (e) => {
     setEncrypt(e.target.checked);
-    alert(e.target.checked);
+    //alert(e.target.checked);
   };
 
   const openWindow = () => {
     window.open("/video");
+  };
+
+  const getLocation = () => {
+    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+  };
+
+  const successCallback = (position) => {
+    console.log(position);
+
+    const { latitude, longitude } = position.coords;
+
+    const formattedLocation = `Estoy en Latitud: ${latitude.toFixed(
+      6
+    )}, Longitud: ${longitude.toFixed(6)}`;
+    setLocation(formattedLocation);
+  };
+
+  const errorCallback = (error) => {
+    console.log(error);
   };
 
   useEffect(() => {
@@ -64,6 +88,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
     socket.emit("setup", user);
     socket.on("connected", () => setSocketConnected(true));
+
     socket.on("typing", () => setIsTyping(true));
     socket.on("stop typing", () => setIsTyping(false));
   }, []);
@@ -99,6 +124,10 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         socket.emit("new message", data);
 
         setMessages([...messages, data]);
+
+        if (encrypt) {
+          fetchMessages();
+        }
       } catch (error) {
         alert("Ha ocurrido un error mensaje");
       }
@@ -132,6 +161,10 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       alert("No se han podido recuperar los mensajes");
     }
   };
+
+  useEffect(() => {
+    getLocation();
+  }, []);
 
   useEffect(() => {
     fetchMessages();
@@ -225,10 +258,31 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                 justifyContent: "space-between",
               }}
             >
-              <Avatar
-                src={getSenderData(user, selectedChat.users).pic}
-                sx={{ width: 50, height: 50 }}
-              ></Avatar>
+              {socketConnected ? (
+                <StyledBadge
+                  overlap="circular"
+                  anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                  variant="dot"
+                >
+                  {" "}
+                  <Avatar
+                    src={getSenderData(user, selectedChat.users).pic}
+                    sx={{ width: 50, height: 50 }}
+                  ></Avatar>
+                </StyledBadge>
+              ) : (
+                <OfflineBadge
+                  overlap="circular"
+                  anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                  variant="dot"
+                >
+                  <Avatar
+                    src={getSenderData(user, selectedChat.users).pic}
+                    sx={{ width: 50, height: 50 }}
+                  ></Avatar>
+                </OfflineBadge>
+              )}
+
               <Typography
                 variant="h5"
                 sx={{
@@ -309,7 +363,11 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             )}
 
             <FormControl onKeyDown={sendMessage} isRequired sx={{ mt: 3 }}>
-              {isTyping ? <div>Loading...</div> : <></>}
+              {isTyping ? (
+                <Typography color={"white"}>Typing...</Typography>
+              ) : (
+                <></>
+              )}
               <Input
                 type="file"
                 onChange={(e) => {
@@ -321,20 +379,29 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                   // console.log("el msj es " + newMessage);
                 }}
               />
+              <Box sx={{ display: "flex" }}>
+                <TextField
+                  fullWidth
+                  variant="outlined"
+                  placeholder="Escribe un mensaje"
+                  onChange={typingHandler}
+                  value={newMessage}
+                />
 
-              <TextField
-                variant="outlined"
-                placeholder="Escribe un mensaje"
-                onChange={typingHandler}
-                value={newMessage}
-              />
-
-              <Checkbox
-                checked={encrypt}
-                onChange={handleCheck}
-                icon={<LockOpenOutlinedIcon />}
-                checkedIcon={<LockIcon />}
-              ></Checkbox>
+                <Checkbox
+                  checked={encrypt}
+                  onChange={handleCheck}
+                  icon={<LockOpenOutlinedIcon />}
+                  checkedIcon={<LockIcon />}
+                ></Checkbox>
+                <IconButton>
+                  <LocationOnIcon
+                    onClick={() => {
+                      setNewMessage(location);
+                    }}
+                  />
+                </IconButton>
+              </Box>
             </FormControl>
           </Box>
         </>

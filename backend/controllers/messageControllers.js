@@ -53,7 +53,7 @@ const allMessages = asyncHandler(async (req, res) => {
                     messages.forEach((message) => {
                         if (message.isEncrypted) {
                             var encrypted = message.content.toString()
-                            var decryptedBytes = CryptoJS.AES.decrypt(encrypted, '12345');
+                            var decryptedBytes = CryptoJS.AES.decrypt(encrypted.toString(), '12345');
                             var decryptedPlaintext = decryptedBytes.toString(CryptoJS.enc.Utf8);
 
 

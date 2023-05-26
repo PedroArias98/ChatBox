@@ -22,6 +22,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Avatar from "@mui/material/Avatar";
+
+import Badge from "@mui/material/Badge";
 import Drawer from "@mui/material/Drawer";
 import Divider from "@mui/material/Divider";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -30,9 +32,62 @@ import Snackbar from "@mui/material/Snackbar";
 import CircularProgress from "@mui/material/CircularProgress";
 
 import { MdChevronLeft } from "react-icons/md";
-
 import "../../App.css";
+
+import io from "socket.io-client";
+
+const ENDPOINT = "http://localhost:5000";
+var socket, selectedChatCompare;
+
 //import { TemeProvider } from "@emotion/react";
+
+const StyledBadge = styled(Badge)(({ theme }) => ({
+  "& .MuiBadge-badge": {
+    backgroundColor: "#44b700",
+    color: "#44b700",
+    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+    "&::after": {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      borderRadius: "50%",
+      animation: "ripple 1.2s infinite ease-in-out",
+      border: "1px solid currentColor",
+      content: '""',
+    },
+  },
+  "@keyframes ripple": {
+    "0%": {
+      transform: "scale(.8)",
+      opacity: 1,
+    },
+    "100%": {
+      transform: "scale(2.4)",
+      opacity: 0,
+    },
+  },
+}));
+
+const OfflineBadge = styled(Badge)(({ theme }) => ({
+  "& .MuiBadge-badge": {
+    backgroundColor: "#FAFAFA",
+    color: "#FAFAFA",
+    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+    "&::after": {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      borderRadius: "50%",
+      animation: "ripple 1.2s infinite ease-in-out",
+      border: "1px solid currentColor",
+      content: '""',
+    },
+  },
+}));
 
 const LightTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -63,7 +118,22 @@ const SideDrawer = ({ userObj, email, avatar, children }) => {
   const [loading, setLoading] = useState(false);
   const [loadingChat, setLoadingChat] = useState();
 
-  const { setSelectedChat, user, chats, setChats } = ChatState();
+  const [socketConnected, setSocketConnected] = useState(false);
+
+  useEffect(() => {
+    socket = io(ENDPOINT);
+
+    socket.emit("setup", user);
+    socket.on("connected", () => setSocketConnected(true));
+    socket.on("disconnected", () => setSocketConnected(false));
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
+  const { setSelectedChat, user, chats, setChats, status, setStatus } =
+    ChatState();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -245,7 +315,23 @@ const SideDrawer = ({ userObj, email, avatar, children }) => {
             aria-expanded={open ? "true" : undefined}
             onClick={handleClick}
           >
-            <Avatar src={user.pic}></Avatar>
+            {socketConnected ? (
+              <StyledBadge
+                overlap="circular"
+                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                variant="dot"
+              >
+                <Avatar src={user.pic}></Avatar>
+              </StyledBadge>
+            ) : (
+              <OfflineBadge
+                overlap="circular"
+                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                variant="dot"
+              >
+                <Avatar src={user.pic}></Avatar>
+              </OfflineBadge>
+            )}
           </Button>
           <Menu
             id="basic-menu"

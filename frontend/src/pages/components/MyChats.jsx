@@ -8,8 +8,22 @@ import Stack from "@mui/material/Stack";
 import { getSender } from "../../config/chatLogics";
 import VideoPlayer from "./VideoPlayer";
 
+import io from "socket.io-client";
+
 import GroupChatModal from "./GroupChatModal";
+
+const ENDPOINT = "http://localhost:5000";
+var socket, selectedChatCompare;
 const MyChats = ({ fetchAgain }) => {
+  const [socketConnected, setSocketConnected] = useState(false);
+
+  useEffect(() => {
+    socket = io(ENDPOINT);
+
+    socket.emit("setup", user);
+    socket.on("connected", () => setSocketConnected(true));
+  }, []);
+
   const [loggedUser, setLoggedUser] = useState();
   const { selectedChat, setSelectedChat, user, setUser, chats, setChats } =
     ChatState();
@@ -90,6 +104,16 @@ const MyChats = ({ fetchAgain }) => {
                     ? getSender(loggedUser, chat.users)
                     : chat.chatName}
                 </Typography>
+
+                {/* TODO: Mostrar el ultimo mensaje enviado ( bug con los mensajes que son encriptados) 
+
+                {chat.latestMessage && (
+                  <Typography fontSize="xs">
+                    {chat.latestMessage.content.length > 40
+                      ? chat.latestMessage.content.substring(0, 41) + "..."
+                      : chat.latestMessage.content}
+                  </Typography>
+                )} */}
               </Box>
             ))}
           </Stack>

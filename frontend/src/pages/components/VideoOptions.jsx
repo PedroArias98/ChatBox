@@ -46,8 +46,8 @@ const VideoOptions = ({ children }) => {
           <form noValidate autoComplete="off">
             <Grid container>
               <Grid item xs={12} md={6}>
-                <Typography gutterBottom variant="h6">
-                  Account Info
+                <Typography gutterBottom variant="h6" color="white">
+                  Mi informacion
                 </Typography>
                 <TextField
                   label="Name"
@@ -57,13 +57,13 @@ const VideoOptions = ({ children }) => {
                 />
                 <CopyToClipboard text={me}>
                   <Button variant="contained" color="primary" fullWidth>
-                    Copy Your ID
+                    Copiar Mi ID
                   </Button>
                 </CopyToClipboard>
               </Grid>
               <Grid item xs={12} md={6}>
-                <Typography gutterBottom variant="h6">
-                  Make a call
+                <Typography gutterBottom variant="h6" color="white">
+                  Llamar a:
                 </Typography>
                 <TextField
                   label="ID to call"
@@ -78,7 +78,7 @@ const VideoOptions = ({ children }) => {
                     fullWidth
                     onClick={leaveCall}
                   >
-                    Hang Up
+                    Colgar
                   </Button>
                 ) : (
                   <Button
@@ -87,7 +87,7 @@ const VideoOptions = ({ children }) => {
                     fullWidth
                     onClick={() => callUser(idToCall)}
                   >
-                    Call
+                    Llamar
                   </Button>
                 )}
               </Grid>
