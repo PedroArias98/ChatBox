@@ -18,15 +18,18 @@ const connectDB = require("./config/db")
 dotenv.config()
 const app = express()
 
+const corsOptions = {
+    origin: 'http://localhost:3000', // Permite solicitudes desde localhost:3000
+    methods: ['GET', 'POST'], // Métodos permitidos
+    allowedHeaders: ['Content-Type'], // Encabezados permitidos
+};
+app.use(cors(corsOptions));
+
 connectDB();
 
 app.get('/', (req, res) => {
     res.send("API is running succesfuly")
 })
-
-// app.get("/api/chat", (req, res) => {
-//     res.send(chats)
-// })
 
 
 
