@@ -15,12 +15,24 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
-import TabContext from "@material-ui/lab/TabContext";
-import TabList from "@material-ui/lab/TabList";
-import TabPanel from "@material-ui/lab/TabPanel";
 import Input from "@mui/material/Input";
 
 import darkTheme from "./misc/theme";
+
+const TabPanel = (props) => {
+  const { children, value, index, ...other } = props;
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`tabpanel-${index}`}
+      aria-labelledby={`tab-${index}`}
+      {...other}
+    >
+      {value === index && <>{children}</>}
+    </div>
+  );
+};
 
 function Copyright(props) {
   return (
@@ -49,25 +61,22 @@ export default function LabTabs() {
 
   return (
     <Box sx={{ width: "100%", typography: "body1" }}>
-      <TabContext value={value}>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <TabList
-            onChange={handleChange}
-            indicatorColor="primary"
-            aria-label="lab API tabs example"
-          >
-            <Tab label="Inicia Sesion" value="1" />
-            <Tab label="Registrarse" value="2" />
-          </TabList>
-        </Box>
-        <TabPanel value="1">
-          <SignIn></SignIn>
-        </TabPanel>
-        <TabPanel value="2">
-          <SignUp></SignUp>
-        </TabPanel>
-        <TabPanel value="3">Item Three</TabPanel>
-      </TabContext>
+      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="login and signup tabs"
+        >
+          <Tab label="Inicia Sesion" value="1" />
+          <Tab label="Registrarse" value="2" />
+        </Tabs>
+      </Box>
+      <TabPanel value={value} index="1">
+        <SignIn />
+      </TabPanel>
+      <TabPanel value={value} index="2">
+        <SignUp />
+      </TabPanel>
     </Box>
   );
 }
