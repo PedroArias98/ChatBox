@@ -9,7 +9,7 @@ import Peer from 'simple-peer'
 
 
 const ChatContext = createContext();
-const socket = io('http://localhost:5000')
+const socket = io('https://chatbox-production-08a4.up.railway.app')
 
 const ChatProvider = ({ children }) => {
   const [selectedChat, setSelectedChat] = useState();
