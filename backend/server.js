@@ -55,7 +55,7 @@ app.post("/api/login/user/", (req, res) => {
     res.send(users)
 })
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 8080;
 
 //const server = app.listen(5000, console.log(`"SERVER STARTED AT PORT ${PORT}"`.yellow.bold))
 
@@ -65,7 +65,7 @@ const server = app.listen(PORT, () => {
 //CORS configuracion socket.io
 const io = require('socket.io')(server, {
     cors: {
-        origin: "https://chat-6ij5bomgq-pedroarias98s-projects.vercel.app",
+        origin: 'https://chat-6ij5bomgq-pedroarias98s-projects.vercel.app', // Asegúrate de que esta URL es correcta
         methods: ["GET", "POST"]
     },
 })
