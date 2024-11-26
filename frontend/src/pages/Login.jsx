@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
+import axiosInstance from "../config/axiosInstance";
 import { Link, useHistory } from "react-router-dom";
 
 import { alertTitleClasses, Container, FormLabel } from "@mui/material";
@@ -111,7 +112,7 @@ const SignIn = () => {
           "Content-type": "application/json",
         },
       };
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         "/api/user/login",
         { email, password },
         { email, password },
@@ -227,7 +228,7 @@ const SignUp = () => {
           "Content-type": "application/json",
         },
       };
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         "/api/user",
         {
           name,
