@@ -28,6 +28,13 @@ app.get('/', (req, res) => {
 //     res.send(chats)
 // })
 
+//deploy
+const path = require('path');
+app.use(express.static(path.join(__dirname, 'frontend/build')));
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
+})
+
 app.get('/api/chat/:id', (req, res) => {
 
     const singleChat = chats.find((c) => c._id === req.params.id)
