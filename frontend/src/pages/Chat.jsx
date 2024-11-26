@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../App.css";
 
 import axios from "axios";
+import axiosInstance from "../config/axiosInstance";
 import { Typography, Divider } from "@mui/material";
 import { Container } from "@mui/material";
 import { Box } from "@mui/material";
@@ -19,7 +20,7 @@ const ChatList = () => {
   //let lista = JSON.parse(chats);
 
   const fetchChats = async () => {
-    const { data } = await axios.get("/api/chat");
+    const { data } = await axiosInstance.get("/api/chat");
     setchats(data);
     console.log(data);
   };

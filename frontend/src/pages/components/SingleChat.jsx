@@ -29,6 +29,7 @@ import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 import axios from "axios";
+import axiosInstance from "../../config/axiosInstance";
 import { ScrollableChat } from "./ScrollableChat";
 import { StyledBadge, OfflineBadge } from "./Badge";
 
@@ -110,7 +111,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         if (file) {
           //alert("aaaaa");
         }
-        const { data } = await axios.post(
+        const { data } = await axiosInstance.post(
           "/api/message",
           {
             content: newMessage,
@@ -148,7 +149,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       };
       setLoading(true);
 
-      const { data } = await axios.get(
+      const { data } = await axiosInstance.get(
         `/api/message/${selectedChat._id}`,
         config
       );

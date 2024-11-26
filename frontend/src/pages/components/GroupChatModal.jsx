@@ -18,6 +18,7 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import darkTheme from "../misc/theme";
 
 import axios from "axios";
+import axiosInstance from "../../config/axiosInstance";
 
 const style = {
   position: "absolute",
@@ -53,7 +54,10 @@ const GroupChatModal = ({ children }) => {
       setLoading(true);
 
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      const { data } = await axios.get(`/api/user?search=${search}`, config);
+      const { data } = await axiosInstance.get(
+        `/api/user?search=${search}`,
+        config
+      );
       //console.log(data);
       setLoading(false);
       setSearchResult(data);
@@ -74,7 +78,7 @@ const GroupChatModal = ({ children }) => {
     }
     try {
       const config = { headers: { Authorization: `Bearer ${user.token}` } };
-      const { data } = await axios.post(
+      const { data } = await axiosInstance.post(
         "/api/chat/group",
         {
           name: groupChatName,

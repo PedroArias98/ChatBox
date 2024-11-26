@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
 import axios from "axios";
-
+import axiosInstance from "../../config/axiosInstance";
 import TemporaryDrawer from "./Drawer";
 import ChatLoading from "./ChatLoading";
 import UserListItem from "./userAvatar/UserListItem";
@@ -239,7 +239,10 @@ const SideDrawer = ({ userObj, email, avatar, children }) => {
         },
       };
 
-      const { data } = await axios.get(`/api/user?search=${search}`, config);
+      const { data } = await axiosInstance.get(
+        `/api/user?search=${search}`,
+        config
+      );
 
       setLoading(false);
 
@@ -261,7 +264,11 @@ const SideDrawer = ({ userObj, email, avatar, children }) => {
         },
       };
 
-      const { data } = await axios.post("/api/chat", { userId }, config);
+      const { data } = await axiosInstance.post(
+        "/api/chat",
+        { userId },
+        config
+      );
       if (!chats.find((c) => c._id === data._id)) setChats([data, ...chats]);
       setSelectedChat(data);
       setLoadingChat(false);

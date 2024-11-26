@@ -19,6 +19,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { MdOutlineEdit } from "react-icons/md";
 
 import axios from "axios";
+import axiosInstance from "../../config/axiosInstance";
 
 const style = {
   position: "absolute",
@@ -69,7 +70,7 @@ export const UpdateGroupChatModal = ({
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.put(
+      const { data } = await axiosInstance.put(
         `/api/chat/groupremove`,
         {
           chatId: selectedChat._id,
@@ -97,7 +98,7 @@ export const UpdateGroupChatModal = ({
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.put(
+      const { data } = await axiosInstance.put(
         `/api/chat/rename`,
         {
           chatId: selectedChat._id,

@@ -1,5 +1,6 @@
 import React, { useDebugValue, useEffect, useState } from "react";
 import axios from "axios";
+import axiosInstance from "../../config/axiosInstance";
 import { ChatState } from "../../Context/ChatProvider";
 import { Box, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -36,7 +37,7 @@ const MyChats = ({ fetchAgain }) => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.get("/api/chat", config);
+      const { data } = await axiosInstance.get("/api/chat", config);
       setChats(data);
 
       console.log(data);
