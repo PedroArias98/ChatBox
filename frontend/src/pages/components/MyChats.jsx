@@ -12,7 +12,7 @@ import io from "socket.io-client";
 
 import GroupChatModal from "./GroupChatModal";
 
-const ENDPOINT = "http://localhost:5000";
+const ENDPOINT = "https://chatbox-production-08a4.up.railway.app";
 var socket, selectedChatCompare;
 const MyChats = ({ fetchAgain }) => {
   const [socketConnected, setSocketConnected] = useState(false);
