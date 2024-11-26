@@ -25,7 +25,7 @@ const ChatList = () => {
     console.log(data);
   };
   useEffect(() => {
-    //fetchChats();
+    fetchChats();
   }, []);
 
   return (
