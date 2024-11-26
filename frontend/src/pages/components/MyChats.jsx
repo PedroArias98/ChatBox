@@ -30,10 +30,10 @@ const MyChats = ({ fetchAgain }) => {
     ChatState();
 
   const fetchChats = async () => {
-    if (!loggedUser) {
-      console.log("ussuario no loggeado");
-      return;
-    }
+    // if (!loggedUser) {
+    //   console.log("usuario no loggeado");
+    //   return;
+    // }
     try {
       const config = {
         headers: {
