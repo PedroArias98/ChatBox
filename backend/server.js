@@ -22,7 +22,7 @@ const app = express()
 const corsOptions = {
     origin: ["https://chat-6ij5bomgq-pedroarias98s-projects.vercel.app", "https://chat-box-snowy-xi.vercel.app"], // Permite solicitudes desde localhost:3000
     methods: ["GET", "POST", "OPTIONS"], // Métodos permitidos
-    allowedHeaders: ["Content-Type"], // Encabezados permitidos
+    allowedHeaders: ["Content-Type", "Authorization"], // Encabezados permitidos
     credentials: true,
 };
 app.use(cors(corsOptions));
