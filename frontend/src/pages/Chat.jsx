@@ -25,7 +25,7 @@ const ChatList = () => {
     console.log(data);
   };
   useEffect(() => {
-    fetchChats();
+    //fetchChats();
   }, []);
 
   return (
@@ -78,111 +78,6 @@ const ChatList = () => {
   );
 };
 
-// const ChatBox = () => {
-//   return (
-//     <>
-//       <Container
-//         maxWidth="false"
-//         disableGutters
-//         style={{
-//           paddingLeft: "35px",
-//           paddingTop: "20px",
-
-//           height: "90px",
-//         }}
-//       >
-//         <Typography class="subtitle" style={{ margin: 0 }}>
-//           {" "}
-//           John Doe
-//         </Typography>
-//       </Container>
-//       <Divider />
-//       <Container
-//         style={{
-//           height: "80vh",
-//           borderRadius: "8px",
-//           paddingTop: 20,
-//         }}
-//       >
-//         <Grid container justifyContent="flex-start">
-//           <Box
-//             maxWidth="40%"
-//             style={{
-//               background: "#6c77ff",
-//               borderRadius: "8px",
-//               padding: "10px",
-//             }}
-//           >
-//             <Typography>
-//               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Pariatur
-//               accusamus blanditiis eaque soluta molestiae quas unde eos laborum
-//               ipsam, sint, est nulla. Veniam sit quod laboriosam maiores
-//               pariatur quis rerum.
-//             </Typography>
-//           </Box>
-//         </Grid>
-
-//         <Grid container justifyContent="flex-end">
-//           <Box
-//             maxWidth="40%"
-//             style={{
-//               background: "#6c77ff",
-//               borderRadius: "8px",
-//               padding: "10px",
-//             }}
-//           >
-//             <Typography>
-//               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Pariatur
-//               accusamus
-//             </Typography>
-//           </Box>
-//         </Grid>
-
-//         <Grid container justifyContent="flex-start">
-//           <Box
-//             maxWidth="40%"
-//             style={{
-//               background: "#6c77ff",
-//               borderRadius: "8px",
-//               padding: "10px",
-//             }}
-//           >
-//             <Typography>Lorem ipsum dolor</Typography>
-//           </Box>
-//         </Grid>
-//       </Container>
-//       <Divider />
-//       <Container
-//         style={{
-//           background: "",
-//           height: "10vh",
-//           borderRadius: "8px",
-//           padding: "10px",
-//         }}
-//       >
-//         <Container style={{ display: "flex", height: "60%" }}>
-//           <Input
-//             placeholder="Escribe un mensaje aqui"
-//             fullWidth
-//             style={{
-//               color: "white",
-//               marginRight: "30px",
-//             }}
-//           />
-//           <Button
-//             size="large"
-//             type="submit"
-//             variant="contained"
-//             endIcon={<SendIcon />}
-//           >
-//             Enviar
-//           </Button>
-//         </Container>
-//       </Container>
-//     </>
-//   );
-// };
-
 export const Chat = () => {
   const { user } = ChatState();
   const [fetchAgain, setFetchAgain] = useState(false);
@@ -206,18 +101,6 @@ export const Chat = () => {
           )}
         </Box>
       </ThemeProvider>
-
-      {/* <ThemeProvider theme={theme}>
-        <Grid container alignItems="stretch" style={{ background: "#212121" }}>
-          <Grid item xl={2} md={4} style={{ display: "flex" }}>
-            <ChatList />
-          </Grid>
-          <Grid item xl={10} md={12}>
-            <ChatBox />
-          </Grid>
-        </Grid>
-      </ThemeProvider>
-      */}
     </div>
   );
 };
