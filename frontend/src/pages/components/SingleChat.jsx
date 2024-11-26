@@ -34,7 +34,7 @@ import { StyledBadge, OfflineBadge } from "./Badge";
 
 import io from "socket.io-client";
 
-const ENDPOINT = "http://localhost:5000";
+const ENDPOINT = "https://chatbox-production-08a4.up.railway.app";
 var socket, selectedChatCompare;
 
 const SingleChat = ({ fetchAgain, setFetchAgain }) => {
