@@ -18,6 +18,7 @@ const connectDB = require("./config/db")
 dotenv.config()
 const app = express()
 
+//CORS configuracion API
 const corsOptions = {
     origin: 'http://localhost:3000', // Permite solicitudes desde localhost:3000
     methods: ['GET', 'POST'], // Métodos permitidos
@@ -57,8 +58,8 @@ app.post("/api/login/user/", (req, res) => {
 const PORT = process.env.PORT || 5000
 
 const server = app.listen(5000, console.log(`"SERVER STARTED AT PORT ${PORT}"`.yellow.bold))
+//CORS configuracion socket.io
 const io = require('socket.io')(server, {
-    pingTimeout: 60000,
     cors: {
         origin: "http://localhost:3000",
         methods: ["GET", "POST"]
