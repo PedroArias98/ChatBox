@@ -20,7 +20,7 @@ const app = express()
 
 //CORS configuracion API
 const corsOptions = {
-    origin: "https://chat-6ij5bomgq-pedroarias98s-projects.vercel.app", // Permite solicitudes desde localhost:3000
+    origin: ["https://chat-6ij5bomgq-pedroarias98s-projects.vercel.app", "https://chat-box-snowy-xi.vercel.app"], // Permite solicitudes desde localhost:3000
     methods: ["GET", "POST"], // Métodos permitidos
     allowedHeaders: ['Content-Type'], // Encabezados permitidos
     credentials: true,
@@ -66,7 +66,7 @@ const server = app.listen(PORT, () => {
 //CORS configuracion socket.io
 const io = require('socket.io')(server, {
     cors: {
-        origin: "https://chat-6ij5bomgq-pedroarias98s-projects.vercel.app", // Asegúrate de que esta URL es correcta
+        origin: ["https://chat-6ij5bomgq-pedroarias98s-projects.vercel.app", "https://chat-box-snowy-xi.vercel.app"], // Asegúrate de que esta URL es correcta
         methods: ["GET", "POST"],
         credentials: true,
     },

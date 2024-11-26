@@ -7,7 +7,6 @@ import { io } from 'socket.io-client'
 
 import Peer from 'simple-peer'
 
-
 const ChatContext = createContext();
 const socket = io('https://chatbox-production-08a4.up.railway.app')
 
