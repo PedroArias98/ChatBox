@@ -45,28 +45,33 @@ const allMessages = asyncHandler(async (req, res) => {
         const msgs = await Message.find({ chat: req.params.chatId })
             .populate("sender", "name pic email")
             .populate("chat")
-            .exec((err, messages) => {
-                if (err) {
-                    console.log('ha ocurrido un error')
-                }
-                else {
-                    messages.forEach((message) => {
-                        if (message.isEncrypted) {
-                            var encrypted = message.content.toString()
-                            var decryptedBytes = CryptoJS.AES.decrypt(encrypted.toString(), '12345');
-                            var decryptedPlaintext = decryptedBytes.toString(CryptoJS.enc.Utf8);
+
+        //TODO: Arreglar encriptacion
+
+        // .exec((err, messages) => {
+        //     if (err) {
+        //         console.log('ha ocurrido un error')
+        //     }
+        //     else {
+        //         messages.forEach((message) => {
+        //             if (message.isEncrypted) {
+        //                 var encrypted = message.content.toString()
+        //                 var decryptedBytes = CryptoJS.AES.decrypt(encrypted.toString(), '12345');
+        //                 var decryptedPlaintext = decryptedBytes.toString(CryptoJS.enc.Utf8);
 
 
-                            message.content = decryptedPlaintext;
+        //                 message.content = decryptedPlaintext;
 
-                        }
-                    })
+        //             }
+        //         })
 
-                }
+        //     }
 
-                res.json(messages)
+        //     res.json(messages)
 
-            })
+        // })
+
+
         // Object.keys(messages).forEach(function (key, index) {
         //     if (messages[key].isEncrypted) {
         //         const decryptedBytes = CryptoJS.AES.decrypt(messages[key].content, '12345')
@@ -95,7 +100,7 @@ const allMessages = asyncHandler(async (req, res) => {
 
 
 
-        // res.json(messages)
+        res.json(msgs)
 
     } catch (error) {
         res.status(400)

@@ -29,6 +29,7 @@ const MyChats = ({ fetchAgain }) => {
     ChatState();
 
   const fetchChats = async () => {
+    if (!loggedUser) return;
     try {
       const config = {
         headers: {
@@ -37,6 +38,7 @@ const MyChats = ({ fetchAgain }) => {
       };
       const { data } = await axios.get("/api/chat", config);
       setChats(data);
+
       console.log(data);
     } catch (error) {
       alert("no se han podido encontrar los chats");
@@ -45,7 +47,10 @@ const MyChats = ({ fetchAgain }) => {
   };
 
   useEffect(() => {
-    setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    if (userInfo) {
+      setLoggedUser(userInfo);
+    }
     fetchChats();
   }, [fetchAgain]);
   return (

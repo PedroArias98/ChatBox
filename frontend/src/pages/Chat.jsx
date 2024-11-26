@@ -1,20 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "../App.css";
-import ResponsiveDrawer from "./Drawer";
 
 import axios from "axios";
-import { isOptionGroup } from "@mui/base";
-import { Grid, Typography, Divider } from "@mui/material";
-import { Container, Button } from "@mui/material";
+import { Typography, Divider } from "@mui/material";
+import { Container } from "@mui/material";
 import { Box } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { TextField, Input } from "@material-ui/core";
-import PrimarySearchAppBar, { Bar } from "../pages/Bar";
+import { ThemeProvider } from "@mui/material/styles";
+
 import SideDrawer from "./components/SideDrawer";
 import MyChats from "./components/MyChats";
 import ChatBox from "./components/ChatBox";
-
-import SendIcon from "@mui/icons-material/Send";
 import { ChatState } from "../Context/ChatProvider";
 
 import darkTheme from "./misc/theme";

@@ -22,6 +22,7 @@ import IconButton from "@mui/material/IconButton";
 import { Link } from "react-router-dom";
 
 import CallIcon from "@mui/icons-material/Call";
+import AttachFileIcon from "@mui/icons-material/AttachFile";
 
 import LockIcon from "@mui/icons-material/Lock";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
@@ -107,7 +108,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         setNewMessage("");
         setFile(false);
         if (file) {
-          alert("aaaaa");
+          //alert("aaaaa");
         }
         const { data } = await axios.post(
           "/api/message",
@@ -368,17 +369,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               ) : (
                 <></>
               )}
-              <Input
-                type="file"
-                onChange={(e) => {
-                  postDetails(e.target.files[0]);
-                  e.target.value = null;
 
-                  // console.log("hola" + e.target.files[0].toString());
-                  // console.log("la img es " + picture);
-                  // console.log("el msj es " + newMessage);
-                }}
-              />
               <Box sx={{ display: "flex" }}>
                 <TextField
                   fullWidth
@@ -394,6 +385,29 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                   icon={<LockOpenOutlinedIcon />}
                   checkedIcon={<LockIcon />}
                 ></Checkbox>
+              </Box>
+
+              <Box>
+                <Input
+                  type="file"
+                  onChange={(e) => {
+                    postDetails(e.target.files[0]);
+                    e.target.value = null;
+
+                    // console.log("hola" + e.target.files[0].toString());
+                    // console.log("la img es " + picture);
+                    // console.log("el msj es " + newMessage);
+                  }}
+                  id="icon-button-file"
+                  display="none"
+                  sx={{ display: "none" }}
+                />
+                <label htmlFor="icon-button-file">
+                  <IconButton color="primary" component="span">
+                    <AttachFileIcon />
+                  </IconButton>
+                </label>
+
                 <IconButton>
                   <LocationOnIcon
                     onClick={() => {

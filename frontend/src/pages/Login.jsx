@@ -105,9 +105,10 @@ const SignIn = () => {
       const { data } = await axios.post(
         "/api/user/login",
         { email, password },
+        { email, password },
         config
       );
-      alert("Inicio de sesion Exitoso");
+      //alert("Inicio de sesion Exitoso");
       localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
       history.push("/chats");
