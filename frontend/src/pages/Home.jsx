@@ -18,6 +18,8 @@ import { AppBar, Toolbar, Divider, IconButton } from "@mui/material";
 
 import { AiFillWechat, AiFillFileAdd, AiFillVideoCamera } from "react-icons/ai";
 
+import Footer from "./components/Footer"
+
 import SendIcon from "@mui/icons-material/Send";
 
 import { Login } from "../pages/Login";
@@ -293,92 +295,9 @@ export const Home = () => {
             </Grid>
           </Container>
 
-          {/* <Grid
-            container
-            spacing={0}
-            alignItems="center"
-            justifyContent="center"
-          >
-            <Grid item xl={3} xs={12} margin={2} sx={itemStyles}>
-              <Card>
-                <CardContent>
-                  <Box
-                    sx={{
-                      //display: "flex",
-                      justifyContent: "center",
-                      alignItems: "baseline",
-                      mb: 2,
-                    }}
-                  >
-                    <Typography component="h1" variant="h2" class="smallText">
-                      Sube tus tareas.
-                    </Typography>
-                    <Typography
-                      component="h2"
-                      variant="h3"
-                      color="text.primary"
-                      class="subtitle"
-                    >
-                      Crea chats grupales o individualess
-                    </Typography>
-                  </Box>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item xl={3} xs={12} margin={2} sx={itemStyles}>
-              <Card>
-                <CardContent>
-                  <Box
-                    sx={{
-                      //display: "flex",
-                      justifyContent: "center",
-                      alignItems: "baseline",
-                      mb: 2,
-                    }}
-                  >
-                    <Typography component="h1" variant="h2" class="smallText">
-                      Sube tus tareas.
-                    </Typography>
-                    <Typography
-                      component="h2"
-                      variant="h3"
-                      color="text.primary"
-                      class="subtitle"
-                    >
-                      Crea chats grupales o individualess
-                    </Typography>
-                  </Box>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item xl={3} xs={12} margin={2} sx={itemStyles}>
-              <Card>
-                <CardContent>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "baseline",
-                      mb: 2,
-                    }}
-                  >
-                    <Typography component="h1" variant="h2" class="smallText">
-                      Sube tus tareasadasdadadadadassasd.
-                    </Typography>
-                    <Typography
-                      component="h2"
-                      variant="h3"
-                      color="text.primary"
-                      class="subtitle"
-                    >
-                      Crea chats grupales o individualessaasdasdadadasdaads
-                    </Typography>
-                  </Box>
-                </CardContent>
-              </Card>
-            </Grid>
-          </Grid> */}
+          
         </Container>
+        <Footer/>
       </ThemeProvider>
     </Container>
   );
