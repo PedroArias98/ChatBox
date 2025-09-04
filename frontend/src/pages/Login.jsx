@@ -339,7 +339,28 @@ const SignUp = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
 
-          <Input type="file" onChange={(e) => postDetails(e.target.files[0])} />
+         
+          <Input
+          type="file"
+          accept="image/*"
+          id="file-upload"
+          style={{ display: "none" }} 
+          onChange={(e) => postDetails(e.target.files[0])}/>
+          <label htmlFor="file-upload">
+            <Button
+              variant="outlined"
+              component="span"
+              fullWidth
+              sx={{
+              mt: 2,
+              borderRadius: "18px",
+              textTransform: "none",
+              }}>
+              Cargar Imagen de perfil
+            </Button>
+          </label>
+
+          
           <Box sx={{ mt: 1, mb: 2 }}>
             <Button
               style={{ minWidth: "60px", minHeight: "50px" }}
